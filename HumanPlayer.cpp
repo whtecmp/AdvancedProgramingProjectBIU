@@ -8,7 +8,6 @@
 //namespace to keep things organized
 namespace AdvancedProgramingProjectBIU
 {
-static Type operator!(Type t) { return t == BLACK? WHITE : (t==NONE?NONE:BLACK); }
 static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLACK?'X':(t==NONE?'N':'O')); }
 
 	/**********************************

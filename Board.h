@@ -33,6 +33,7 @@ namespace AdvancedProgramingProjectBIU
 		//standard getter
 		int GetSize() {return size;}
 
+        int GetScore(Type me);
 
 		/******************************************
 		* Function: PlaceUnit

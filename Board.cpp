@@ -241,6 +241,18 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
         }
 	}
 
+    int Board::GetScore(Type me){
+        int score = 0;
+        for (int i = 0; i < GetSize(); i++) {
+            for (int j = 0; j < GetSize(); j++) {
+                if (this->GetSquare(i, j) == me)
+                    score++;
+                if (this->GetSquare(i, j) == !me)
+                    score--;
+            }
+        }
+        return score;
+    }
 	/********************************
 	* D'tor
 	* How it works? Realese theBoard

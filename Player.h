@@ -41,6 +41,8 @@ namespace AdvancedProgramingProjectBIU
 		//Function that plays turns
 		virtual Error Act() = 0;
 
+		void UpdateScore();
+
 	};
 
 }

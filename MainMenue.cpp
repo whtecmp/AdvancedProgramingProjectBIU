@@ -5,7 +5,7 @@
 #include "MainMenue.h"
 #include "Board.h"
 #include "HumanPlayer.h"
-
+#include "ComputerPlayer.h"
 
 //namespace to keep things organized
 namespace AdvancedProgramingProjectBIU
@@ -51,7 +51,7 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 		Board b;
 		Player* p[2];
 		p[0] = new HumanPlayer(BLACK, b);
-		p[1] = new HumanPlayer(WHITE, b);
+		p[1] = new ComputerPlayer(WHITE, b);
 		
 		Type playerToPlayIs = BLACK;
 		

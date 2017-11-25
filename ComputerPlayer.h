@@ -6,12 +6,22 @@
 #include "Header.h"
 #ifndef _H_GURD_COMPUTERPLAYER
 #define _H_GURD_COMPUTERPLAYER
+#include "Player.h"
+#include "MainMenue.h"
+#include "Header.h"
 
 namespace AdvancedProgramingProjectBIU
 {
+    /************************************************
+	* Class Name: HumanPlayer
+	* Inherits: Player
+	* Class Aim: Represent a computer player
+	************************************************/
     class ComputerPlayer : public Player
     {
+    private:
         Board practiceBoard;
+    public:
         /**********************************
 		* C'tor
 		* Aim: A normal ctor
@@ -19,7 +29,8 @@ namespace AdvancedProgramingProjectBIU
 		* Output: A new HumanPlayer
 		* How it works?: initializing with Player's
 							normal c'tor
-		***********************************/
+	    ***********************************/
+
         ComputerPlayer(Type t, Board& b);
 
         /**********************************
@@ -30,8 +41,7 @@ namespace AdvancedProgramingProjectBIU
 		* How it works?: goes with minMax
          * strategy, and bring the best results.
 		***********************************/
-
-        Error ComputerPlayer::Act();
+        virtual Error Act();
     };
 }
 
