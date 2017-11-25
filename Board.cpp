@@ -233,7 +233,12 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 	}
 	Board::Board(Board &oldBoard, unsigned int size)
 	{
-
+        this->size = size;
+        for(int i=0; i < size;i++){
+            for(int j=0;j < size;j++) {
+                theBoard[i][j] = oldBoard.GetSquare(i, j);
+            }
+        }
 	}
 
 	/********************************
