@@ -48,7 +48,7 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 	*********************************************/
 	Error MainMenue::Start()
 	{
-		Board b = Board();
+		Board b;
 		Player* p[2];
 		p[0] = new HumanPlayer(BLACK, b);
 		p[1] = new HumanPlayer(WHITE, b);

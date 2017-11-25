@@ -26,9 +26,10 @@ namespace AdvancedProgramingProjectBIU
 
 		Type** theBoard;
 
-
 	public:
 
+
+        Type GetSquare(unsigned i,unsigned j){return theBoard[i][j];}
 		//standard getter
 		int GetSize() {return size;}
 
@@ -76,7 +77,15 @@ namespace AdvancedProgramingProjectBIU
 			and gives it its default values
 		*********************************************/
 		Board(unsigned int size = 8);
-		
+
+        /******************************************
+		* C'tor: Default C'tor
+		* Aim: Can only change size
+		* Input: The size, deafaultly 8 and a board to copy
+		* How it works? Creates a matrix of this size
+			and copy the points from the oldBoard;
+		*********************************************/
+		Board(Board &oldBoard,unsigned int size = 8);
 		/*******************************
 		* D'tor
 		* How it works? Realese theBoard
@@ -94,7 +103,6 @@ namespace AdvancedProgramingProjectBIU
 		theBoard and streams one by one
 	***********************************/
 	std::ostream& operator<<(std::ostream& os, const Board& b);
-
 }
 
 

@@ -231,7 +231,10 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 		theBoard[size/2 - 1][size/2 - 1] = theBoard[size/2][size/2] = WHITE;
 		theBoard[size/2 - 1][size/2] = theBoard[size/2][size/2 - 1] = BLACK;
 	}
+	Board::Board(Board &oldBoard, unsigned int size)
+	{
 
+	}
 
 	/********************************
 	* D'tor
