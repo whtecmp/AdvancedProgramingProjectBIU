@@ -1,4 +1,7 @@
-//Efraim Vagner	207304262
+/**************************************
+ * Names: Avi Kadria and Efraim Vagner
+ * Ids  : 211991401  and 207304262
+ **************************************/
 #include "MainMenue.h"
 #include "Board.h"
 #include "HumanPlayer.h"
@@ -13,8 +16,6 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 
 	//A public pointer to the mainmenue class single instance
 	MainMenue const * flow = NULL;
-
-
 
 	/******************************************
 	* C'tor
@@ -119,9 +120,6 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 				is >> temp;
 			}
 			playerToPlayIs = !playerToPlayIs;
-		
 		}
 	}
-
-
 }

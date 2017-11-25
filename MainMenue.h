@@ -1,4 +1,7 @@
-//Efraim Vagner	207304262
+/**************************************
+ * Names: Avi Kadria and Efraim Vagner
+ * Ids  : 211991401  and 207304262
+ **************************************/
 #ifndef _H_GURD_MAINMENUE
 #define _H_GURD_MAINMENUE
 

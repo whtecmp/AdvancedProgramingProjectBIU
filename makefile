@@ -12,3 +12,10 @@ Player.o: Player.cpp Player.h
 	g++ -c Player.cpp
 HumanPlayer.o: HumanPlayer.cpp HumanPlayer.h
 	g++ -c HumanPlayer.cpp
+clean:
+	rm HumanPlayer.o
+	rm Player.o
+	rm MainMenue.o
+	rm Board.o
+	rm main.o
+	rm a.out	

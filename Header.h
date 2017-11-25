@@ -1,4 +1,7 @@
-//Efraim Vagner	207304262
+/**************************************
+ * Names: Avi Kadria and Efraim Vagner
+ * Ids  : 211991401  and 207304262
+ **************************************/
 #ifndef _H_GURD_HEADER
 #define _H_GURD_HEADER
 
@@ -10,7 +13,7 @@ namespace AdvancedProgramingProjectBIU
 
 	//#define DEBUG
 	
-	#ifdef DEBUG
+	#ifdef DEBUGca
 	#define D(A) A
 	#define IFD(A) {if (!debug){A}}
 	#else
@@ -22,7 +25,7 @@ namespace AdvancedProgramingProjectBIU
 
 	enum Error 
 	{
-		NO_ERROR,
+		NO_ERROR = 0,
 		MORE_THEN_ONE_SINGLETONE,
 		POSITION_IS_TAKEN,
 		CAPTURES_NO_ONE,

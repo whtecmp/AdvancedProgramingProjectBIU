@@ -1,7 +1,9 @@
-//Efraim Vagner	207304262
+/**************************************
+ * Names: Avi Kadria and Efraim Vagner
+ * Ids  : 211991401  and 207304262
+ **************************************/
 #include "Board.h"
 #include "MainMenue.h"
-
 
 //namespace to keep things organized
 namespace AdvancedProgramingProjectBIU
@@ -219,11 +221,11 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 	Board::Board(unsigned int size)
 	{
 		this->size = size;
-		theBoard = new Type*[size];
-		for (int i = 0; i < size; i++)
+		theBoard = new Type*[size + 2];
+		for (int i = 0; i <= size + 1; i++)
 		{
 			theBoard[i] = new Type[size];
-			for (int j = 0; j < size; j++)
+			for (int j = 0; j <= size + 1; j++)
 				theBoard[i][j] = NONE;
 		}
 		theBoard[size/2 - 1][size/2 - 1] = theBoard[size/2][size/2] = WHITE;
@@ -237,7 +239,7 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 	*********************************/
 	Board::~Board()
 	{
-		for (int i = 0; i < size; i++)
+		for (int i = 0; i <= size + 1; i++)
 		{
 			delete theBoard[i];
 		}
@@ -245,5 +247,3 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 	}
 
 }
-
-
