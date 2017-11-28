@@ -1,0 +1,47 @@
+commit 02564b5ff7302565e4fa2679bca581b5141b9c0b
+Author: Avi_Kadria <avi.kadria3@gmail.com>
+Date:   Tue Nov 28 23:37:55 2017 +0200
+
+    organised the project and merged the branches
+
+commit 92f3070a6df37db35139ecf1f3eedd340b484bb7
+Author: whtecmp <33748207+whtecmp@users.noreply.github.com>
+Date:   Tue Nov 28 16:38:15 2017 +0200
+
+    Add files via upload
+
+commit 6755acf23a8066e9d91e6081f63d1c034494dc8d
+Author: Avi_Kadria <avi.kadria3@gmail.com>
+Date:   Sat Nov 25 13:10:03 2017 +0200
+
+    finished the ComputerPlayer class, didn't debug yet.
+
+commit 79466d4a7f665b71372c5bdc121224c3fd6553b4
+Author: Avi_Kadria <avi.kadria3@gmail.com>
+Date:   Sat Nov 25 12:26:12 2017 +0200
+
+    fixed a few bugs
+
+commit 8d6598dd31e4cc23ed9d191fc57b58fee88c6aee
+Author: Avi_Kadria <avi.kadria3@gmail.com>
+Date:   Sat Nov 25 12:13:57 2017 +0200
+
+    started working
+
+commit 9d4ee7ab66c946a21110d52a2a2214a6366174af
+Author: Avi_Kadria <avi.kadria3@gmail.com>
+Date:   Sat Nov 25 11:46:24 2017 +0200
+
+    started working
+
+commit 8f4669ff878e96e984703a8136801af877a74493
+Author: whtecmp <33748207+whtecmp@users.noreply.github.com>
+Date:   Fri Nov 17 11:09:48 2017 +0200
+
+    Add files via upload
+
+commit 66dca55a30786e3ae3708915590d42a4a7799484
+Author: whtecmp <33748207+whtecmp@users.noreply.github.com>
+Date:   Fri Nov 17 11:08:00 2017 +0200
+
+    Initial commit
