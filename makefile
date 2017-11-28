@@ -1,4 +1,4 @@
-#Efraim Vagner	207304262
+#Efraim Vagner	207304262 Avi Kadria 211991401
 
 a.out: main.o Board.o MainMenue.o Player.o HumanPlayer.o ComputerPlayer.o
 	g++ main.o Board.o MainMenue.o Player.o HumanPlayer.o ComputerPlayer.o

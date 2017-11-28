@@ -26,7 +26,7 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 					methods. Then checks if an error 
 					was encountered, because of the singletone.
 	*********************************************/
-	MainMenue::MainMenue() : os(std::cout), is(std::cin)
+	MainMenue::MainMenue(bool start = true) : os(std::cout), is(std::cin)
 	{
 		if (flow != NULL)
 		{
@@ -34,7 +34,8 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 		}
 		flow = this;
 		
-		Start();
+		if (start)
+			Start();
 	}
 
 
