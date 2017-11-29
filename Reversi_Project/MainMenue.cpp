@@ -6,7 +6,7 @@
 #include "Board.h"
 #include "HumanPlayer.h"
 #include "ComputerPlayer.h"
-
+using namespace std;
 //namespace to keep things organized
 namespace AdvancedProgramingProjectBIU
 {
@@ -57,7 +57,6 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 		Type playerToPlayIs = BLACK;
 		
 		bool quit = false;
-		
 		while (!quit)
 		{
 			os << b;
@@ -86,7 +85,6 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 			if (posMoves)
 			{
 				bool isFirst = true;
-							
 				os << "Your possible moves: ";
 				for (int i = 0; i < b.GetSize(); i++)
 				{
@@ -105,13 +103,14 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 				}
 				
 				os << std::endl << std::endl;
+
 				Error e = p[playerToPlayIs]->Act();
+
 				if (e != NO_ERROR)
 				{
 					os << "Invalid move! Please try again." << std::endl;
 					playerToPlayIs = !playerToPlayIs;
 				}
-
 			}
 			else
 			{

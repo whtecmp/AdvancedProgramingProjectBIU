@@ -86,7 +86,7 @@ namespace AdvancedProgramingProjectBIU
 		* How it works? Creates a matrix of this size
 			and copy the points from the oldBoard;
 		*********************************************/
-		Board(Board &oldBoard,unsigned int size = 8);
+		Board(Board &oldBoard);
 		/*******************************
 		* D'tor
 		* How it works? Realese theBoard
