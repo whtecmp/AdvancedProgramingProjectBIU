@@ -4,7 +4,9 @@
  **************************************/
 #include "Board.h"
 #include "MainMenue.h"
-using namespace std;
+
+#define NUM_OF_DIRECTIONS 8
+
 //namespace to keep things organized
 namespace AdvancedProgramingProjectBIU
 {
@@ -126,20 +128,18 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 	*********************************************/
 	Error Board::PlaceUnit(int x, int y, Type who)
 	{
-        cout << "2.233"<<endl;
-        cout << *this;
         x = x - 1; y = y - 1;
 		if (theBoard[x][y] != NONE)
 			return POSITION_IS_TAKEN;
 		bool loop = true;
 		enum {LEFT=0,RIGHT=1,UP=2,DOWN=3,LEFTUP=4,LEFTDOWN=5,RIGHTDOWN=6,RIGHTUP=7};
 		enum status {ILEAGLE, CAPTURED, UNDETRMINED};
-		status done[GetSize()];
-		bool capIn[GetSize()];
+		status done[NUM_OF_DIRECTIONS];
+		bool capIn[NUM_OF_DIRECTIONS];
 
-		for (int i = 0; i < GetSize(); i++)
+		for (int i = 0; i < NUM_OF_DIRECTIONS; i++)
 			done[i] = UNDETRMINED;
-        for (int i = 0; i < GetSize(); i++)
+        for (int i = 0; i < NUM_OF_DIRECTIONS; i++)
 			capIn[i] = false;
         for (int i = 1; i < size; i++)
 		{
@@ -183,13 +183,13 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
         bool loop = true;
 		enum {LEFT=0,RIGHT=1,UP=2,DOWN=3,LEFTUP=4,LEFTDOWN=5,RIGHTDOWN=6,RIGHTUP=7};
 		enum status {ILEAGLE, CAPTURED, UNDETRMINED};
-		status done[GetSize()];
-		bool capIn[GetSize()];
+		status done[NUM_OF_DIRECTIONS];
+		bool capIn[NUM_OF_DIRECTIONS];
 
-        for (int i = 0; i < GetSize(); i++)
+        for (int i = 0; i < NUM_OF_DIRECTIONS; i++)
 			done[i] = UNDETRMINED;
 
-        for (int i = 0; i < GetSize(); i++)
+        for (int i = 0; i < NUM_OF_DIRECTIONS; i++)
 			capIn[i] = false;
 
 		for (int i = 1; i < size; i++)
