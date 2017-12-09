@@ -11,7 +11,7 @@ int main()
 	Socket* player1 = new Socket(SERVER);
 	Socket* player2 = new Socket(SERVER);
 	
-	player1->connect();
+	player1->Connect();
 	player1->data = "1st";
 	player1->Send();
 	
