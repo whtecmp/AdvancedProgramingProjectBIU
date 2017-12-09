@@ -15,7 +15,7 @@ int main()
 	player1->data = "1st";
 	player1->Send();
 	
-	player2->connect();
+	player2->Connect();
 	player2->data = "2nd";
 	player2->Send();
 	
