@@ -41,7 +41,10 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 
 	Error MainMenue::Start()
 	{
-		return NO_ERROR;
+		os << "Welcome to Reversi!\n\n Choose an opponent:\n1. a human local player\n2. an AI player\n3. a remote player\n";
+		int i;
+		is >> i;
+		return Play(i);
 	}
 
 	/******************************************
@@ -54,10 +57,47 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 	*********************************************/
 	Error MainMenue::Play(int typeOfGame)
 	{
+		Socket* remotePlay = NULL;
+		
 		Board b;
 		Player* p[2];
-		p[0] = new HumanPlayer(BLACK, b);
-		p[1] = new ComputerPlayer(WHITE, b);
+		switch (typeOfGame)
+		{
+		case 1:
+			p[0] = new HumanPlayer(BLACK, b);
+			p[1] = new HumanPlayer(WHITE, b);
+			break;
+		case 2:
+			p[0] = new HumanPlayer(BLACK, b);
+			p[1] = new ComputerPlayer(WHITE, b);
+			break;
+		case 3:
+			remotePlay = new Socket(CLIENT);
+			remotePlay->data = "active";
+			remotePlay->Send();
+			remotePlay->Recive();
+			
+			os << "connected to server" << std::endl;
+			os << "waiting for other player to join..." << std::endl;
+			
+			remotePlay->Wait();
+			
+			if (remotePlay->data == "1st")
+			{
+				p[0] = new LocalPlayer(BLACK, b, remotePlay);
+				p[1] = new RemotePlayer(WHITE, b, remotePlay);
+			}
+			else
+			{
+				p[0] = new RemotePlayer(BLACK, b, remotePlay);
+				p[1] = new LocalPlayer(WHITE, b, remotePlay);
+			}
+			
+			break;
+		default:
+			return NO_SUCH_GAME;
+			break;
+		}
 		
 		Type playerToPlayIs = BLACK;
 		
@@ -123,6 +163,11 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 				
 				char temp;
 				is >> temp;
+				if (remotePlay != NULL)
+				{
+					remotePlay->data = "NoMove";
+					remotePlay->Send();
+				}
 			}
 			playerToPlayIs = !playerToPlayIs;
 		}

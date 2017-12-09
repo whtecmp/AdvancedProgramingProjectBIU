@@ -14,6 +14,11 @@ HumanPlayer.o: HumanPlayer.cpp HumanPlayer.h
 	g++ -c HumanPlayer.cpp
 ComputerPlayer.o: ComputerPlayer.cpp ComputerPlayer.h
 	g++ -c ComputerPlayer.cpp
+RemotePlayer.o: RemotePlayer.cpp RemotePlayer.h
+	g++ -c RemotePlayer.cpp
+LocalPlayer.o: LocalPlayer.cpp LocalPlayer.h
+	g++ -c LocalPlayer.cpp
+	
 clean:
 	rm HumanPlayer.o
 	rm ComputerPlayer.o

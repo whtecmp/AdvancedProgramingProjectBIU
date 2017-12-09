@@ -8,20 +8,30 @@
 
 int main()
 {
-	Socket* player1 = Wait();
-	SendConfirmation(player1);
+	Socket* player1 = new Socket(SERVER);
+	Socket* player2 = new Socket(SERVER);
 	
-	Socket* player2 = Wait();
-	SendConfirmation(player2);
+	player1->connect();
+	player1->data = "1st";
+	player1->Send();
+	
+	player2->connect();
+	player2->data = "2nd";
+	player2->Send();
+	
+	player1->Send();
+	player2->Send();
 
 
-	while (move != 'End')
+	while (move != "End")
 	{
-		std::string move1 = ReciveMove(player1);
-		SendMove(player2, move1);
+		player1->Recive();
+		player2->data = player1->data;
+		player2->Send();
 	
-		std::string move2 = ReciveMove(player2);
-		SendMove(player1, move2);
+		player2->Recive();
+		player1->data = player2->data;
+		player1->Send();
 	
 	}
 }

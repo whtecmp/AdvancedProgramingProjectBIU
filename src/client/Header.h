@@ -29,6 +29,7 @@ namespace AdvancedProgramingProjectBIU
 		MORE_THEN_ONE_SINGLETONE,
 		POSITION_IS_TAKEN,
 		CAPTURES_NO_ONE,
+		NO_SUCH_GAME,
 	};
 
 	enum Type {BLACK, WHITE, NONE};
