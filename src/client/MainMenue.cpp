@@ -39,6 +39,11 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 	}
 
 
+	Error MainMenue::Start()
+	{
+		return NO_ERROR;
+	}
+
 	/******************************************
 	* Function: Start
 	* Aim: Replace the main function
@@ -47,7 +52,7 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 	* How it works? Initialises players, then enters
 					an infinet loop and starts the game.
 	*********************************************/
-	Error MainMenue::Start()
+	Error MainMenue::Play(int typeOfGame)
 	{
 		Board b;
 		Player* p[2];

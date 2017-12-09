@@ -49,6 +49,9 @@ namespace AdvancedProgramingProjectBIU
 						was encountered, because of the singletone.
 		*********************************************/
 		MainMenue(bool start = true);
+		
+		
+		Error Play(int typeOfGame);
 
 	};
 
