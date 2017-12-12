@@ -24,12 +24,12 @@ namespace AdvancedProgramingProjectBIU
 	{
 	private:
 	
-		Socket info;
+		Socket* info;
 
 	public:
 
 		//Function that plays turns
-		virtual Error Act() = 0;
+		virtual Error Act();
 
 		RemotePlayer(Type t, Board& b, Socket* s);
 

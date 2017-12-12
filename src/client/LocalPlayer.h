@@ -30,7 +30,7 @@ namespace AdvancedProgramingProjectBIU
 	public:
 
 		//Function that plays turns
-		virtual Error Act() = 0;
+		virtual Error Act();
 
 		LocalPlayer(Type t, Board& b, Socket* s);
 

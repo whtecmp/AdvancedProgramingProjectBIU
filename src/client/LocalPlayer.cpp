@@ -18,15 +18,16 @@ namespace AdvancedProgramingProjectBIU
 		Error e = board.PlaceUnit(x, y, me);
 		if (e != SUCCESS)
 			return e;
-		info->data = (std::string) x + "," + (std::string) y;
+		info->data = std::to_string(x) + "," + std::to_string(y);
 		info->Send();
 		flow->os << "Waiting for othe player's move...";
-		return info.Send();
+		info->Send();
+		return e;
 		
 	}
     
 	LocalPlayer::LocalPlayer(Type t, Board& b, Socket* s) : Player(t, b) 
 	{
-		info = new Socket(s);
+		info = s;
 	}
 }

@@ -1,7 +1,7 @@
 #Efraim Vagner	207304262 Avi Kadria 211991401
 
-client.out: main.o Board.o MainMenue.o Player.o HumanPlayer.o ComputerPlayer.o Socket.o
-	g++ main.o Board.o MainMenue.o Player.o HumanPlayer.o ComputerPlayer.o -o client.out
+client.out: main.o Board.o MainMenue.o Player.o HumanPlayer.o ComputerPlayer.o Socket.o LocalPlayer.o RemotePlayer.o
+	g++ main.o Board.o MainMenue.o Player.o HumanPlayer.o ComputerPlayer.o Socket.o LocalPlayer.o RemotePlayer.o -o client.out
 main.o: main.cpp Header.h
 	g++ -c main.cpp Header.h
 Board.o: Board.cpp Board.h

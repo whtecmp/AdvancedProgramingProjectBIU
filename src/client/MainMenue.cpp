@@ -6,7 +6,9 @@
 #include "Board.h"
 #include "HumanPlayer.h"
 #include "ComputerPlayer.h"
-using namespace std;
+#include "LocalPlayer.h"
+#include "RemotePlayer.h"
+
 //namespace to keep things organized
 namespace AdvancedProgramingProjectBIU
 {
@@ -178,7 +180,7 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 					if (remotePlay!=NULL)
 					{
 						remotePlay->data = "End";
-						remotePlay.Send();
+						remotePlay->Send();
 					}
 					
 					return Start();

@@ -6,13 +6,14 @@
 #define _H_GURD_PLAYER
 
 #include "Board.h"
+#include "MainMenue.h"
 #include "Header.h"
 
-static Type operator!(Type t) { return t == BLACK? WHITE : (t==NONE?NONE:BLACK); }
-static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLACK?'X':(t==NONE?'N':'O')); }
+
 //namespace to keep things organized
 namespace AdvancedProgramingProjectBIU
 {
+
 
 	/******************************************
 	* Class Name: Player
@@ -46,7 +47,7 @@ namespace AdvancedProgramingProjectBIU
 
 		void UpdateScore();
 		
-		void Finish() {UpdateScore(); flow->os<<me<<"'s score="<<score<<std::endl;}
+		void Finish() {UpdateScore(); flow->os<<(me=='X'?'X':'O')<<"'s score="<<score<<std::endl;}
 	
 	};
 

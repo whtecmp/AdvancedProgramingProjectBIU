@@ -15,8 +15,8 @@ namespace AdvancedProgramingProjectBIU
 		if (move != "End" && move != "NoMove")
 		{
 		
-			std::string xstr = std::string(move.len());
-			std::string ystr = std::string(move.len());
+			std::string xstr;
+			std::string ystr;
 			
 			int i;
 			for (i = 0; move[i] != ','; i++)
@@ -35,7 +35,7 @@ namespace AdvancedProgramingProjectBIU
 			int x = std::stoi(xstr);
 			int y = std::stoi(ystr);
 			
-			Error e = board.placeUnit(x, y, me);
+			Error e = board.PlaceUnit(x, y, me);
 			flow->os << me << "played:" << '(' << x << ',' << y << ')' << std::endl;
 			
 			return e;
@@ -50,6 +50,6 @@ namespace AdvancedProgramingProjectBIU
 
 	RemotePlayer::RemotePlayer(Type t, Board& b, Socket* s) : Player(t, b) 
 	{
-		info = new Socket(s);
+		info = s;
 	}
 }

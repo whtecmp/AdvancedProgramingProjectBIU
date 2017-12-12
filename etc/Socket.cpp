@@ -1,8 +1,13 @@
 #include "Socket.h"
+
 #include <iostream>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <arpa/inet.h>
+#include <netdb.h>
 #include <unistd.h>
+#include <string.h>
+
 #include <fstream>
 
 
@@ -13,18 +18,18 @@ void Socket::Connect()
 	if (targetSock == -1)
 		{std::cout << "Error opening socket" << std::endl; return;}
 	
-	struct in_addr adress;
-	if (!inet_aton(IP.c_str(), &adress))
-		{std::cout << "Can't parse IP adress" << std::endl; return}
+	struct in_addr address;
+	if (!inet_aton(IP.c_str(), &address))
+		{std::cout << "Can't parse IP adress" << std::endl; return;}
 	
-	struct hostnet *server;
+	struct hostent* server;
 	server = gethostbyaddr((const void*)&address, sizeof(address), AF_INET);
 	
 	if (server == NULL)
 		{std::cout<<"Host is unreachable"<<std::endl; return;}
 	
 	struct sockaddr_in serverAdress;
-	bzero((char*)&address, sizeof(adress));
+	bzero((char*)&address, sizeof(address));
 	
 	serverAdress.sin_family = AF_INET;
 	memcpy((char*)&serverAdress.sin_addr.s_addr, (char*)server->h_addr, server->h_length);
@@ -65,8 +70,9 @@ void Socket::Listen()
 	
 void Socket::Send()
 {
-	char* sending = data.c_str();
-	int n = read(targetSock, recived, 512);
+	char* sending = new char[512];
+	strcpy(sending, data.c_str());
+	int n = write(targetSock, sending, 512);
 	if (n == -1)
 		{std::cout<<"Error sending data" << std::endl; return;}
 }
