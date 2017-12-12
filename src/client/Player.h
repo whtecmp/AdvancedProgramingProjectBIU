@@ -8,7 +8,8 @@
 #include "Board.h"
 #include "Header.h"
 
-
+static Type operator!(Type t) { return t == BLACK? WHITE : (t==NONE?NONE:BLACK); }
+static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLACK?'X':(t==NONE?'N':'O')); }
 //namespace to keep things organized
 namespace AdvancedProgramingProjectBIU
 {
@@ -36,13 +37,17 @@ namespace AdvancedProgramingProjectBIU
 		//C'tor
 		Player(Type t, Board& b) : me(t), board(b), score(0) {}
 
+
+	
 	public:
 
 		//Function that plays turns
 		virtual Error Act() = 0;
 
 		void UpdateScore();
-
+		
+		void Finish() {UpdateScore(); flow->os<<me<<"'s score="<<score<<std::endl;}
+	
 	};
 
 }

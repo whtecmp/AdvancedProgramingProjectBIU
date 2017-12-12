@@ -42,6 +42,7 @@ namespace AdvancedProgramingProjectBIU
          * strategy, and bring the best results.
 		***********************************/
         virtual Error Act();
+        
     };
 }
 

@@ -8,6 +8,7 @@
 #include "Board.h"
 #include "Header.h"
 #include "Player.h"
+#include "../../etc/Socket.h"
 
 //namespace to keep things organized
 namespace AdvancedProgramingProjectBIU

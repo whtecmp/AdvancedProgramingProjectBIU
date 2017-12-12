@@ -72,7 +72,7 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 			p[1] = new ComputerPlayer(WHITE, b);
 			break;
 		case 3:
-			remotePlay = new Socket(CLIENT);
+			remotePlay = new Socket();
 			remotePlay->data = "active";
 			remotePlay->Send();
 			remotePlay->Recive();
@@ -80,7 +80,7 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 			os << "connected to server" << std::endl;
 			os << "waiting for other player to join..." << std::endl;
 			
-			remotePlay->Wait();
+			remotePlay->Recive();
 			
 			if (remotePlay->data == "1st")
 			{
@@ -159,6 +159,29 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 			}
 			else
 			{
+			
+				bool posMoves = false;
+				for (int i = 0; i < b.GetSize(); i++)
+				{
+					for (int j = 0; j < b.GetSize(); j++)
+					{
+						if (b.CanPlaceHere(i+1, j+1, !playerToPlayIs))
+							{mat[i][j] = true; posMoves = true;}
+					}
+				}
+			
+				if (!posMoves)
+				{
+					p[0]->Finish();
+					p[1]->Finish();
+					if (remotePlay!=NULL)
+					{
+						remotePlay->data = "End";
+						remotePlay.Send();
+					}
+					
+					return Start();
+				}
 				os << "No possible moves. Play passes to the other player. Press any key to continue.";
 				
 				char temp;

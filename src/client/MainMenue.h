@@ -6,6 +6,7 @@
 #define _H_GURD_MAINMENUE
 
 #include "Header.h"
+#include "../../etc/Socket.h"
 
 //namespace to keep things organized
 namespace AdvancedProgramingProjectBIU
