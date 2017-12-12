@@ -1,103 +1,96 @@
-/**************************************
- * Names: Avi Kadria and Efraim Vagner
- * Ids  : 211991401  and 207304262
- **************************************/
-
 #include "Socket.h"
-namespace AdvancedProgramingProjectBIU {
-    Socket::Socket() {
-        sock = -1;
-        port = 0;
-        address = "";
-    }
+#include <iostream>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <unistd.h>
+#include <fstream>
 
-    /**
-    Connect to a host on a certain port number
-    */
-    bool Socket::Connect(std::string address, int port) {
-        //create socket if it is not already created
-        if (sock == -1) {
-            //Create socket
-            sock = socket(AF_INET, SOCK_STREAM, 0);
-            if (sock == -1) {
-                perror("Could not create socket");
-            }
 
-            std::cout << "Socket created\n";
-        } else {   /* OK , nothing */  }
 
-        //setup address structure
-        if (inet_addr(address.c_str()) == -1) {
-            struct hostent *he;
-            struct in_addr **addr_list;
-
-            //resolve the hostname, its not an ip address
-            if ((he = gethostbyname(address.c_str())) == NULL) {
-                //gethostbyname failed
-                herror("gethostbyname");
-                std::cout << "Failed to resolve hostname\n";
-
-                return false;
-            }
-
-            //Cast the h_addr_list to in_addr , since h_addr_list also has the ip address in long format only
-            addr_list = (struct in_addr **) he->h_addr_list;
-
-            for (int i = 0; addr_list[i] != NULL; i++) {
-                //strcpy(ip , inet_ntoa(*addr_list[i]) );
-                server.sin_addr = *addr_list[i];
-
-                std::cout << address << " resolved to " << inet_ntoa(*addr_list[i]) << std::endl;
-
-                break;
-            }
-        }
-
-            //plain ip address
-        else {
-            server.sin_addr.s_addr = inet_addr(address.c_str());
-        }
-
-        server.sin_family = AF_INET;
-        server.sin_port = htons(port);
-
-        //Connect to remote server
-        if (connect(sock, (struct sockaddr *) &server, sizeof(server)) < 0) {
-            perror("connect failed. Error");
-            return 1;
-        }
-
-        std::cout << "Connected\n";
-        return true;
-    }
-
-    /**
-    Send data to the connected host
-    */
-    bool Socket::SendData(std::string data) {
-        //Send some data
-        if (send(sock, data.c_str(), strlen(data.c_str()), 0) < 0) {
-            perror("Send failed : ");
-            return false;
-        }
-        std::cout << "Data send\n";
-
-        return true;
-    }
-
-    /**
-    Receive data from the connected host
-    */
-    std::string Socket::Receive(int size = 512/*default size*/) {
-        char buffer[size];
-        std::string reply;
-
-        //Receive a reply from the server
-        if (recv(sock, buffer, sizeof(buffer), 0) < 0) {
-            puts("recv failed");
-        }
-
-        reply = buffer;
-        return reply;
-    }
+void Socket::Connect()
+{
+	targetSock = socket(AF_INET, SOCK_STREAM, 0);
+	if (targetSock == -1)
+		{std::cout << "Error opening socket" << std::endl; return;}
+	
+	struct in_addr adress;
+	if (!inet_aton(IP.c_str(), &adress))
+		{std::cout << "Can't parse IP adress" << std::endl; return}
+	
+	struct hostnet *server;
+	server = gethostbyaddr((const void*)&address, sizeof(address), AF_INET);
+	
+	if (server == NULL)
+		{std::cout<<"Host is unreachable"<<std::endl; return;}
+	
+	struct sockaddr_in serverAdress;
+	bzero((char*)&address, sizeof(adress));
+	
+	serverAdress.sin_family = AF_INET;
+	memcpy((char*)&serverAdress.sin_addr.s_addr, (char*)server->h_addr, server->h_length);
+	
+	serverAdress.sin_port = htons(port);
+	if (connect(targetSock, (struct sockaddr*)&serverAdress, sizeof(serverAdress)) == -1)
+		{std::cout<<"Error connecting to server"<<std::endl; return;}
 }
+	
+void Socket::Listen()
+{
+	mySock = socket(AF_INET, SOCK_STREAM, 0);
+	if (mySock == -1)
+		{std::cout << "Error opening socket" << std::endl; return;}
+	struct sockaddr_in serverAdress;
+	bzero((void*)&serverAdress, sizeof(serverAdress));
+	
+	serverAdress.sin_family = AF_INET;
+	serverAdress.sin_addr.s_addr = INADDR_ANY;
+	serverAdress.sin_port = htons(port);
+	
+	if (bind(mySock, (struct sockaddr*)&serverAdress, sizeof(serverAdress)) == -1)
+		{std::cout << "Error on binding" << std::endl; return;}
+	
+	
+	
+	
+	listen(mySock, 1);
+	
+	struct sockaddr_in clientAdress;
+	socklen_t clientAdressLen = sizeof(clientAdress);
+	
+	targetSock = accept(mySock, (struct sockaddr*)&clientAdress, &clientAdressLen);
+	if (targetSock == -1)
+		{std::cout << "Error on accept" << std::endl; return;}
+		
+}
+	
+void Socket::Send()
+{
+	char* sending = data.c_str();
+	int n = read(targetSock, recived, 512);
+	if (n == -1)
+		{std::cout<<"Error sending data" << std::endl; return;}
+}
+	
+void Socket::Recive()
+{
+	char* recived;
+	int n = read(targetSock, recived, 512);
+	if (n == -1)
+		{std::cout<<"Error reciving data" << std::endl; return;}
+	data = std::string(recived);
+}
+
+
+Socket::Socket()
+{
+	std::ifstream settings("settings.txt");
+	char temp;
+	settings >> temp >> temp >> port >> temp >> temp >> temp >> IP;
+}
+
+
+
+
+
+
+

@@ -1,7 +1,7 @@
 #Efraim Vagner	207304262 Avi Kadria 211991401
 
-a.out: main.o Board.o MainMenue.o Player.o HumanPlayer.o ComputerPlayer.o
-	g++ main.o Board.o MainMenue.o Player.o HumanPlayer.o ComputerPlayer.o -o "player.out"
+client.out: main.o Board.o MainMenue.o Player.o HumanPlayer.o ComputerPlayer.o Socket.o
+	g++ main.o Board.o MainMenue.o Player.o HumanPlayer.o ComputerPlayer.o -o client.out
 main.o: main.cpp Header.h
 	g++ -c main.cpp Header.h
 Board.o: Board.cpp Board.h
@@ -18,13 +18,10 @@ RemotePlayer.o: RemotePlayer.cpp RemotePlayer.h
 	g++ -c RemotePlayer.cpp
 LocalPlayer.o: LocalPlayer.cpp LocalPlayer.h
 	g++ -c LocalPlayer.cpp
+Socket.o: ../../etc/Socket.cpp ../../etc/Socket.h
+	g++ -c ../../etc/Socket.cpp
 	
 clean:
-	rm HumanPlayer.o
-	rm ComputerPlayer.o
-	rm Player.o
-	rm MainMenue.o
-	rm Board.o
-	rm main.o
+	rm *.o
 	rm a.out	
 

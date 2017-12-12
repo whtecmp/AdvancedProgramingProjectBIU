@@ -73,6 +73,7 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 			break;
 		case 3:
 			remotePlay = new Socket();
+			remotePlay->Connect();
 			remotePlay->data = "active";
 			remotePlay->Send();
 			remotePlay->Recive();
