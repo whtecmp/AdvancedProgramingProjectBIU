@@ -23,5 +23,5 @@ Socket.o: ../../etc/Socket.cpp ../../etc/Socket.h
 	
 clean:
 	rm *.o
-	rm a.out	
+	rm client.out	
 
