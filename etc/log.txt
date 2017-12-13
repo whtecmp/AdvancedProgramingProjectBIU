@@ -1,3 +1,106 @@
+commit b193069200de3426c359807950477dc894df6bed
+Author: whtecmp <EfraimVagner@protonmail.com>
+Date:   Tue Dec 12 22:07:42 2017 +0200
+
+    Working Local Remote and Computer Opponent
+
+commit 4856dddc2ce99f4350ae69445b0a236380430199
+Author: whtecmp <EfraimVagner@protonmail.com>
+Date:   Tue Dec 12 22:03:56 2017 +0200
+
+    Local, Remote and Computer Opponents
+
+commit 4c4a0473e68a5959a8c75ba874c49fde3f64bac7
+Author: whtecmp <EfraimVagner@protonmail.com>
+Date:   Tue Dec 12 22:01:58 2017 +0200
+
+    Remote, Local and Computer Players
+
+commit 5420c2a541683f04c2f7236f0512ebca2d7dad52
+Merge: 89be756 494a2b0
+Author: whtecmp <EfraimVagner@protonmail.com>
+Date:   Tue Dec 12 21:23:28 2017 +0200
+
+    Online, Local, Computer-All works
+
+commit 89be756a0fd3fece5aacb394720b9255a08a73b7
+Author: whtecmp <EfraimVagner@protonmail.com>
+Date:   Tue Dec 12 21:19:58 2017 +0200
+
+    Online, Local, Computer-All works
+
+commit 494a2b06182ff5b50b19d0f2c9cac669f16062fa
+Author: whtecmp <33748207+whtecmp@users.noreply.github.com>
+Date:   Tue Dec 12 17:45:16 2017 +0200
+
+    Added a Readme
+
+commit d1361322aa635f4aea38408eeeb492209a6ab34e
+Author: whtecmp <33748207+whtecmp@users.noreply.github.com>
+Date:   Tue Dec 12 17:42:50 2017 +0200
+
+    Update README.md
+
+commit 9be4e57ba1f9635c2ac8b9555b2c01a10a9ccfb1
+Author: whtecmp <EfraimVagner@protonmail.com>
+Date:   Tue Dec 12 17:40:15 2017 +0200
+
+    disconnecting player
+
+commit acbba50d35e8feb51a7ed29058cb8e41fa0d8566
+Author: Avi_Kadria <avi.kadria3@gmail.com>
+Date:   Sun Dec 10 16:50:39 2017 +0200
+
+    added the server code
+
+commit 4e0da3d2302d9199ed98f535259cf155e360a4e4
+Author: whtecmp <33748207+whtecmp@users.noreply.github.com>
+Date:   Sat Dec 9 12:25:09 2017 +0200
+
+    Update server.cpp
+
+commit 7fca661469c9eec4c34eba41a047b1ca03d8a03f
+Author: whtecmp <33748207+whtecmp@users.noreply.github.com>
+Date:   Sat Dec 9 12:24:57 2017 +0200
+
+    Update server.cpp
+
+commit 716f3b3ea822d3824308ac88d4a29f673692e81e
+Author: whtecmp <EfraimVagner@protonmail.com>
+Date:   Sat Dec 9 12:23:45 2017 +0200
+
+    everything for ex4 execpt Sockets class
+
+commit a0978a1843eb502dd1ae8a22821ee5724ff8e9d0
+Author: vag <EfraimVagner@protonmail.com>
+Date:   Sat Dec 9 11:20:05 2017 +0200
+
+    with server
+
+commit 43f9fe5505cedeb4054486608612bc38f96c47a1
+Author: vag <EfraimVagner@protonmail.com>
+Date:   Sat Dec 9 11:16:55 2017 +0200
+
+    with server
+
+commit 23a6d780922a76e1c3835d3d7024d2c7b4067f1e
+Author: vag <EfraimVagner@protonmail.com>
+Date:   Sat Dec 9 11:08:36 2017 +0200
+
+    sorted to folders
+
+commit 98c0e9eda3f7b9e1b30a134435d45a0dc2c2cfc1
+Author: vag <EfraimVagner@protonmail.com>
+Date:   Sat Dec 9 11:06:29 2017 +0200
+
+    my commit
+
+commit 6c2d0b2db50060c95d8bb71f6433971545989b44
+Author: Avi_Kadria <avi.kadria3@gmail.com>
+Date:   Thu Nov 30 11:58:30 2017 +0200
+
+    took efi's work
+
 commit 2a2b9be9c20dac40bc0f9442d2cb792f9e2b6597
 Author: Avi_Kadria <avi.kadria3@gmail.com>
 Date:   Wed Nov 29 21:32:21 2017 +0200
