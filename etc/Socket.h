@@ -16,15 +16,15 @@ private:
 public:
 
 	void Connect();
-	
+
 	void Listen();
-	
+
 	void Send();
-	
+
 	void Recive();
-	
+
 	std::string data;
-	
+
 	Socket();
 
 };
