@@ -6,7 +6,6 @@ Socket.o: ../../etc/Socket.cpp ../../etc/Socket.h
 	g++ -c ../../etc/Socket.cpp
 Game.o:	Game.h Game.cpp
 	g++ -c Game.cpp
-
 clean:
 	rm *.o
 	rm server.out
