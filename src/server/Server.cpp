@@ -8,54 +8,22 @@ Names: Avi Kadria and Efraim Vagner
 #include "string.h"
 #include <thread>
 #include <pthread.h>
+#include "Game.h"
 
 #define D true
-class Game{
-	const std::string gameName;
-	int numberPlayersInGame;
-	Socket *players[2];
-public:
-	void JoinGame(Socket* player){}
-	Game(std::string name):gameName(name),numberPlayersInGame(0){}
-	Game(){}
-	~Game(){
-		delete(players[1]);
-		delete(players[2]);
-	}
-	std::string GetName(){return gameName;}
-	//returns whether it was able to add the player to the game.
-	bool AddPlayerToGame(Socket* player){
-		if (numberPlayersInGame < 2){
-			players[numberPlayersInGame] = player;
-			numberPlayersInGame++;
-		}
-		else
-			return false;
-	}
-	bool Contains(Socket* player){
-		for(int i=0;i<2;i++)
-			if(players[i]==player)
-				return true;
-		return false;
-	}
-	void SendOtherPlayer(Socket* player,std::string toSend){
-		if(player == players[0]){
-			players[1]->data = toSend;
-			players[1]->Send();
-		}
-		else if(player == players[1]){
-			players[0]->data =toSend;
-			players[0]->Send();
-		}
-	}
-	int GetNumberPlayersInGame(){return numberPlayersInGame;}
-};
 
 Game** ListGames = new Game*[100]; //default value, can open more.
-int ListGamesSize = 100;
+int ListGamesSize = 100;//Saves the size of the list of games.
+													//(could be reallocated)
 int CurrentOpenGames = 0; //counts the number of open games.
 
-
+/*************************************
+function name: OpenGame
+input: name of a game.
+output: nothing
+function operation:check if there exists a game with this name, if there is
+	return -1 (error) otherwise create a new game with this name.
+**************************************/
 void OpenGame(std::string gameName,Socket* player){
 	if(D){
 		std::cout<<gameName<<std::endl;
@@ -76,6 +44,13 @@ void OpenGame(std::string gameName,Socket* player){
 	return;
 }
 
+/*************************************
+function name: PrintGames
+input: Socket of player
+output: nothing
+function operation:Send to a player string representing all the games that has
+	been created..
+**************************************/
 void PrintGames(Socket* player){
 	std::string output = "";
 	for(int i=0;i<CurrentOpenGames;i++){
@@ -88,6 +63,13 @@ void PrintGames(Socket* player){
 	player->Send();
 }
 
+
+/*************************************
+function name: CloseGame
+input: name of game.
+output: nothing
+function operation:Remove the game from the game list.
+**************************************/
 void CloseGame(std::string gameName){
 	for (int i=0;i<CurrentOpenGames;i++){
 		if(gameName==ListGames[i]->GetName()){
@@ -97,6 +79,14 @@ void CloseGame(std::string gameName){
 	return;
 }
 
+/*************************************
+function name: JoinGame
+input: pointer to Socket of a player and the bane of the game.
+output: nothing
+function operation:check if there exists a game with this name and f there is
+	more room in it(less than two players in it). if there is room connects the
+	player to this game.
+**************************************/
 void JoinGame(std::string gameName,Socket* player){
 	for(int i=0;i<CurrentOpenGames;i++){
 		if(gameName==ListGames[i]->GetName()){
@@ -105,6 +95,13 @@ void JoinGame(std::string gameName,Socket* player){
 	}
 }
 
+/*************************************
+function name: Play
+input: pointer to Socket of a player and a string of the move it does.
+output: nothing
+function operation:check on which game the player is in. when it is found send
+	the second player the move this player has done.
+**************************************/
 void Play(std::string move/*<x> <y>*/,Socket* player){
 	move[1] = ',';
 	for(int i=0;i<CurrentOpenGames;i++){
@@ -114,6 +111,13 @@ void Play(std::string move/*<x> <y>*/,Socket* player){
 	}
 }
 
+/*************************************
+function name: HandlePlayer
+input: pointer to Socket of a player
+output: nothing
+function operation: runs an inifinite while loop, in it waiting to receive
+	input from client, goes according to the input and calls the wanted functions.
+**************************************/
 void* HandlePlayer(void* voidpToPlayer){
 	Socket * player = (Socket *) voidpToPlayer;
 	while(player->data != "End")
@@ -142,7 +146,13 @@ void* HandlePlayer(void* voidpToPlayer){
 	}
 	delete(player);
 }
-
+/*************************************
+function name: main
+input: nothing
+output: nothing
+function operation: runs an inifinite while loop, in it waiting to receive
+	clients, when clients is received open a new thread which will take care of it.
+**************************************/
 int main(){
 	pthread_t threads[100];
   int index=0;
