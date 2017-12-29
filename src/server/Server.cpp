@@ -6,6 +6,8 @@ Names: Avi Kadria and Efraim Vagner
 #include <string>
 #include "../../etc/Socket.h"
 #include "string.h"
+#include <thread>
+#include <pthread.h>
 
 #define D true
 class Game{
@@ -112,7 +114,8 @@ void Play(std::string move/*<x> <y>*/,Socket* player){
 	}
 }
 
-int HandlePlayer(Socket* player){
+void* HandlePlayer(void* voidpToPlayer){
+	Socket * player = (Socket *) voidpToPlayer;
 	while(player->data != "End")
 	{
 		player->Listen();
@@ -141,11 +144,14 @@ int HandlePlayer(Socket* player){
 }
 
 int main(){
-
+	pthread_t threads[100];
+  int index=0;
 	while(true){
 			Socket* newPlayer = new Socket();
 			newPlayer->Listen();
-			HandlePlayer(newPlayer);
+			pthread_create(&threads[index], NULL, HandlePlayer,(void *)newPlayer);
+			//listThreads[index] = new std::thread(HandlePlayer,newPlayer);
+			index++;
 	}
 	//Efi's stuff.
 	while (true){
