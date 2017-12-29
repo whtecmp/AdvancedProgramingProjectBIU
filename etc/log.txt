@@ -1,3 +1,35 @@
+commit efdfaf729172eb6d1ee043a18989eebf809954f0
+Author: Avi_Kadria <avi.kadria3@gmail.com>
+Date:   Fri Dec 29 22:42:29 2017 +0200
+
+    builded the project
+
+commit 63ece3d26562329ab55a61fe2080a214ebb8a88e
+Author: Avi_Kadria <avi.kadria3@gmail.com>
+Date:   Fri Dec 29 22:35:47 2017 +0200
+
+    now compiling! added comments and supperated for diffrent files (the new game class)
+
+commit babb3ecced6446b207b61045b8cb2777ffc2555d
+Author: Avi_Kadria <avi.kadria3@gmail.com>
+Date:   Fri Dec 29 18:03:02 2017 +0200
+
+    added threads, not comiling now git add .!
+
+commit 211996e535a39d354a9186cbdc94e9e8f97c4c29
+Author: Avi_Kadria <avi.kadria3@gmail.com>
+Date:   Fri Dec 29 17:37:07 2017 +0200
+
+    Ex5
+    added The option of multiple games to the server.
+    client now requests from the server.
+
+commit 866bfa51371f16f40ae135ebe66fb67eeae330c1
+Author: Avi_Kadria <avi.kadria3@gmail.com>
+Date:   Wed Dec 13 08:36:45 2017 +0200
+
+    added logs
+
 commit b193069200de3426c359807950477dc894df6bed
 Author: whtecmp <EfraimVagner@protonmail.com>
 Date:   Tue Dec 12 22:07:42 2017 +0200
