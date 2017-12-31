@@ -22,14 +22,14 @@ namespace AdvancedProgramingProjectBIU
     private:
         Board practiceBoard;
     public:
-        /**********************************
+    /**********************************
 		* C'tor
 		* Aim: A normal ctor
 		* Input: The way to stream, what to stream
 		* Output: A new HumanPlayer
 		* How it works?: initializing with Player's
 							normal c'tor
-	    ***********************************/
+	  ***********************************/
 
         ComputerPlayer(Type t, Board& b);
 
@@ -42,7 +42,7 @@ namespace AdvancedProgramingProjectBIU
          * strategy, and bring the best results.
 		***********************************/
         virtual Error Act();
-        
+
     };
 }
 

@@ -33,7 +33,8 @@ namespace AdvancedProgramingProjectBIU
 		//standard getter
 		int GetSize() {return size;}
 
-        int GetScore(Type me);
+		//standard getter
+		int GetScore(Type me);
 
 		/******************************************
 		* Function: PlaceUnit
@@ -46,8 +47,8 @@ namespace AdvancedProgramingProjectBIU
 						else, returns error.
 		*********************************************/
 		Error PlaceUnit(int x, int y, Type who);
-		
-		
+
+
 		/******************************************
 		* Function: CanPlaceHere
 		* Aim: To see if it is legal to place here
@@ -64,7 +65,7 @@ namespace AdvancedProgramingProjectBIU
 		* Aim: A stream method
 		* Input: The way to stream, what to stream
 		* Output: The way to stream
-		* How it works?: Goes over the matrix, 
+		* How it works?: Goes over the matrix,
 			theBoard and streams one by one
 		***********************************/
 		friend std::ostream& operator<<(std::ostream& os, const Board& b);
@@ -100,7 +101,7 @@ namespace AdvancedProgramingProjectBIU
 	* Aim: A stream method
 	* Input: The way to stream, what to stream
 	* Output: The way to stream
-	* How it works?: Goes over the matrix, 
+	* How it works?: Goes over the matrix,
 		theBoard and streams one by one
 	***********************************/
 	std::ostream& operator<<(std::ostream& os, const Board& b);

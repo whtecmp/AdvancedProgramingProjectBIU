@@ -23,9 +23,7 @@ namespace AdvancedProgramingProjectBIU
 	private:
 
 	public:
-	
-	
-	
+
 		/**********************************
 		* C'tor
 		* Aim: A normal ctor

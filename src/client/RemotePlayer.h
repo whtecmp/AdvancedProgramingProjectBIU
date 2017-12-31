@@ -23,14 +23,25 @@ namespace AdvancedProgramingProjectBIU
 	class RemotePlayer : public Player
 	{
 	private:
-	
+
 		Socket* info;
 
 	public:
 
-		//Function that plays turns
+		/************************************************************************
+		*function name: UpdateScore
+		*input : NONE
+		*output :NONE
+		*operation : asks for the game move and send it to the server
+		**************************************************************************/
 		virtual Error Act();
 
+		/************************************************************************
+		*function name:constructor
+		*input : the type, board refrence and a socket.
+		*output : Remote player
+		*operation :Set the values according to input
+		**************************************************************************/
 		RemotePlayer(Type t, Board& b, Socket* s);
 
 	};

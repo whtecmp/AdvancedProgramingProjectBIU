@@ -23,13 +23,18 @@ namespace AdvancedProgramingProjectBIU
 	class LocalPlayer : public Player
 	{
 	private:
-		
+
 		Socket* info;
 
 
 	public:
 
-		//Function that plays turns
+		/************************************************************************
+		*function name:Act
+		*input : NONE.
+		*output : NONE
+		*operation :Act as a local player.
+		**************************************************************************/
 		virtual Error Act();
 
 		LocalPlayer(Type t, Board& b, Socket* s);
