@@ -15,6 +15,7 @@ public:
 	//returns whether it was able to add the player to the game.
 	bool AddPlayerToGame(Socket* player);
 	bool Contains(Socket* player);
+	Socket* GetOtherPlayer(Socket* player);
 	void SendOtherPlayer(Socket* player,std::string toSend);
 	int GetNumberPlayersInGame(){return numberPlayersInGame;}
 };

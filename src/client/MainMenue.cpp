@@ -8,13 +8,13 @@
 #include "ComputerPlayer.h"
 #include "LocalPlayer.h"
 #include "RemotePlayer.h"
+#include "string.h"
 
 //namespace to keep things organized
 namespace AdvancedProgramingProjectBIU
 {
-
-static Type operator!(Type t) { return t == BLACK? WHITE : (t==NONE?NONE:BLACK); }
-static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLACK?'X':(t==NONE?'N':'O')); }
+	static Type operator!(Type t) { return t == BLACK? WHITE : (t==NONE?NONE:BLACK); }
+	static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLACK?'X':(t==NONE?'N':'O')); }
 
 	//A public pointer to the mainmenue class single instance
 	MainMenue const * flow = NULL;
@@ -24,8 +24,8 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 	* Aim: Initialise tokens, and start the program
 	* Input: -
 	* Output: -
-	* How it works? Initialises streaming and input 
-					methods. Then checks if an error 
+	* How it works? Initialises streaming and input
+					methods. Then checks if an error
 					was encountered, because of the singletone.
 	*********************************************/
 	MainMenue::MainMenue(bool start) : os(std::cout), is(std::cin)
@@ -35,7 +35,7 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 			throw MORE_THEN_ONE_SINGLETONE;
 		}
 		flow = this;
-		
+
 		if (start)
 			Start();
 	}
@@ -60,7 +60,7 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 	Error MainMenue::Play(int typeOfGame)
 	{
 		Socket* remotePlay = NULL;
-		
+
 		Board b;
 		Player* p[2];
 		switch (typeOfGame)
@@ -74,36 +74,94 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 			p[1] = new ComputerPlayer(WHITE, b);
 			break;
 		case 3:
+			//connecting to server:
+			bool toContinue2 = true; //will be true as long as didn't exit
 			remotePlay = new Socket();
 			remotePlay->Connect();
 			remotePlay->data = "active";
 			remotePlay->Send();
 			remotePlay->Recive();
-			
+			//connected:
 			os << "connected to server" << std::endl;
-			os << "waiting for other player to join..." << std::endl;
-			
-			remotePlay->Recive();
-			
-			if (remotePlay->data == "1st")
-			{
-				p[0] = new LocalPlayer(BLACK, b, remotePlay);
-				p[1] = new RemotePlayer(WHITE, b, remotePlay);
+
+			while(toContinue2){
+				std::string requestToServer;
+				os << "Choose your option to send the server:" << std::endl;
+				os << "start <name>, starts a game with this name" << std::endl;
+				os << "list_games, returns list of the games." << std::endl;
+				os << "join <game>, joins the game wit the specified name" << std::endl;
+				os << "play <x> <y>,make the move and waits for the other" << std::endl;
+				os << "close <game> closes the game" << std::endl;
+				os << "End, exit the server and close"<<std::endl;
+
+				is >> requestToServer;
+				remotePlay->data = requestToServer;
+				remotePlay->Send();
+				remotePlay->Recive();
+
+				if(requestToServer.substr(0,strlen("start ")) == "start "){
+						if(remotePlay->data == "1")
+							os << "Opened game" << std::endl;
+						else if(remotePlay->data == "-1")
+							os << "Error, A game with that name already exists"<<std::endl;
+				}
+				else if(requestToServer == "list_games"){
+					if(remotePlay->data == "-1")
+						os<< "Error accured" << std::endl;
+					else
+						os << remotePlay->data << std::endl;
+				}
+				else if(requestToServer.substr(0,strlen("start ")) == "join "){
+					if(remotePlay->data == "-1")
+						os<< "Error, There is no game with this name" << std::endl;
+					else if (remotePlay->data == "1")
+						os << "Joined the game." << std::endl;
+				}
+				else if(requestToServer.substr(0,strlen("play ")) == "play ")
+				{
+					if (remotePlay->data == "-1")
+						os<<"Error, the player didn't join any game" << std::endl;
+					else{
+						//Update Board according to received data. *****EFI*******
+					}
+				}
+				else if(requestToServer.substr(0,strlen("close ")) == "close ")
+				{
+					if(remotePlay->data == "1")
+						os << "Closed the game" << std::endl;
+					else if(remotePlay->data == "-1")
+						os << "Error, A game with that name doesn't exist"<<std::endl;
+				}
+				else if(requestToServer == "End"){
+					toContinue2 = false;
+				}
+				else{
+					//non-valid operator:
+					os << "Error, this is not an operator format." <<std::endl;
+				}
 			}
-			else
-			{
-				p[0] = new RemotePlayer(BLACK, b, remotePlay);
-				p[1] = new LocalPlayer(WHITE, b, remotePlay);
-			}
-			
+			// os << "waiting for other player to join..." << std::endl;
+      //
+			// remotePlay->Recive();
+      //
+			// if (remotePlay->data == "1st")
+			// {
+			// 	p[0] = new LocalPlayer(BLACK, b, remotePlay);
+			// 	p[1] = new RemotePlayer(WHITE, b, remotePlay);
+			// }
+			// else
+			// {
+			// 	p[0] = new RemotePlayer(BLACK, b, remotePlay);
+			// 	p[1] = new LocalPlayer(WHITE, b, remotePlay);
+			// }
 			break;
-		default:
-			return NO_SUCH_GAME;
-			break;
+		// default:
+		// 	return NO_SUCH_GAME;
+		// 	break;
 		}
-		
+
 		Type playerToPlayIs = BLACK;
-		
+
 		bool quit = false;
 		while (!quit)
 		{
@@ -118,7 +176,7 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 				for (int j = 0; j <  b.GetSize(); j++)
 					mat[i][j] = false;
 			}
-			
+
 			bool posMoves = false;
 			for (int i = 0; i < b.GetSize(); i++)
 			{
@@ -128,8 +186,8 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 						{mat[i][j] = true; posMoves = true;}
 				}
 			}
-			
-			
+
+
 			if (posMoves)
 			{
 				bool isFirst = true;
@@ -146,10 +204,10 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 								os << ',';
 							os << '(' << i+1 << ',' << j+1 << ')';
 						}
-								
+
 					}
 				}
-				
+
 				os << std::endl << std::endl;
 
 				Error e = p[playerToPlayIs]->Act();
@@ -162,7 +220,7 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 			}
 			else
 			{
-			
+
 				bool posMoves = false;
 				for (int i = 0; i < b.GetSize(); i++)
 				{
@@ -172,7 +230,7 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 							{mat[i][j] = true; posMoves = true;}
 					}
 				}
-			
+
 				if (!posMoves)
 				{
 					p[0]->Finish();
@@ -182,11 +240,11 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 						remotePlay->data = "End";
 						remotePlay->Send();
 					}
-					
+
 					return Start();
 				}
 				os << "No possible moves. Play passes to the other player. Press any key to continue.";
-				
+
 				char temp;
 				is >> temp;
 				if (remotePlay != NULL)

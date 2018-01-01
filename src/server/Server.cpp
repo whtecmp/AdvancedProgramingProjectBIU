@@ -41,6 +41,9 @@ void OpenGame(std::string gameName,Socket* player){
 		CurrentOpenGames++;
 		ListGames[CurrentOpenGames] = new Game(gameName);
 	}
+	//sends the player that the operation succeeded
+	player->data = "1";
+	player->Send();
 	return;
 }
 
@@ -70,13 +73,25 @@ input: name of game.
 output: nothing
 function operation:Remove the game from the game list.
 **************************************/
-void CloseGame(std::string gameName){
+void CloseGame(std::string gameName, Socket* player){
+	bool isDeleted = false;
 	for (int i=0;i<CurrentOpenGames;i++){
-		if(gameName==ListGames[i]->GetName()){
+		if(gameName == ListGames[i]->GetName()){
 			delete(ListGames[i]);
+			isDeleted = true;
 		}
 	}
+
+	if(isDeleted){
+		//sends the player that the operation succeeded
+		player->data = "1";
+	}
+	else{
+		player->data = "-1";
+	}
+	player->Send();
 	return;
+
 }
 
 /*************************************
@@ -88,11 +103,17 @@ function operation:check if there exists a game with this name and f there is
 	player to this game.
 **************************************/
 void JoinGame(std::string gameName,Socket* player){
+	bool isJoined;
 	for(int i=0;i<CurrentOpenGames;i++){
 		if(gameName==ListGames[i]->GetName()){
 			ListGames[i]->AddPlayerToGame(player);
+			isJoined = true;
 		}
 	}
+	if(isJoined)
+		player->data = "1";
+	else
+		player->data = "-1";
 }
 
 /*************************************
@@ -103,11 +124,32 @@ function operation:check on which game the player is in. when it is found send
 	the second player the move this player has done.
 **************************************/
 void Play(std::string move/*<x> <y>*/,Socket* player){
+	bool isInGame = false;
+	Socket* otherPlayer = NULL;
+	//to agree with last exercise format:
 	move[1] = ',';
 	for(int i=0;i<CurrentOpenGames;i++){
 			if(ListGames[i]->Contains(player)){
+				isInGame = true;
+				otherPlayer = ListGames[i]->GetOtherPlayer(player);
 				ListGames[i]->SendOtherPlayer(player,move);
+				otherPlayer->Recive();
+				player->data = otherPlayer->data;
+				player->Send();
+				return;
+
+				// player1->Recive();
+				// player2->data = player1->data;
+				// player2->Send();
+        //
+				// player2->Recive();
+				// player1->data = player2->data;
+				// player1->Send();
 			}
+	}
+	if(!isInGame){
+		player->data = "-1";
+		player->Send();
 	}
 }
 
@@ -119,10 +161,11 @@ function operation: runs an inifinite while loop, in it waiting to receive
 	input from client, goes according to the input and calls the wanted functions.
 **************************************/
 void* HandlePlayer(void* voidpToPlayer){
+	bool toContinue = true;
 	Socket * player = (Socket *) voidpToPlayer;
-	while(player->data != "End")
+	player->Listen();
+	while(toContinue)
 	{
-		player->Listen();
 		player->Recive();
 
 		if(player->data.substr(0,strlen("start ")) == "start "){
@@ -141,7 +184,17 @@ void* HandlePlayer(void* voidpToPlayer){
 		}
 		else if(player->data.substr(0,strlen("close ")) == "close ")
 		{
-			CloseGame(player->data.substr(strlen("close ")));
+			CloseGame(player->data.substr(strlen("close ")),player);
+		}
+		else if(player->data == "End"){
+			toContinue = false;
+			player->Send(); //just to make the client exit aswell (to let him know I
+												//saw he disconnected).
+		}
+		else{
+			//non-valid operator:
+			player->data = "-1";
+			player->Send();
 		}
 	}
 	delete(player);
@@ -163,36 +216,36 @@ int main(){
 			//listThreads[index] = new std::thread(HandlePlayer,newPlayer);
 			index++;
 	}
-	//Efi's stuff.
-	while (true){
-		Socket* player1 = new Socket();
-		Socket* player2 = new Socket();
-
-		player1->Listen();
-		player1->data = "1st";
-		player1->Send();
-
-		player2->Listen();
-		player2->data = "2nd";
-		player2->Send();
-
-		//??
-		player1->Send();
-		player2->Send();
-
-
-		while (player1->data != "End")
-		{
-			player1->Recive();
-			player2->data = player1->data;
-			player2->Send();
-
-			player2->Recive();
-			player1->data = player2->data;
-			player1->Send();
-
-		}
-		delete(player1);
-		delete(player2);
-	}
+	//Ex4:
+	// while (true){
+	// 	Socket* player1 = new Socket();
+	// 	Socket* player2 = new Socket();
+  //
+	// 	player1->Listen();
+	// 	player1->data = "1st";
+	// 	player1->Send();
+  //
+	// 	player2->Listen();
+	// 	player2->data = "2nd";
+	// 	player2->Send();
+  //
+	// 	//??
+	// 	player1->Send();
+	// 	player2->Send();
+  //
+  //
+	// 	while (player1->data != "End")
+	// 	{
+	// 		player1->Recive();
+	// 		player2->data = player1->data;
+	// 		player2->Send();
+  //
+	// 		player2->Recive();
+	// 		player1->data = player2->data;
+	// 		player1->Send();
+  //
+	// 	}
+	// 	delete(player1);
+	// 	delete(player2);
+	// }
 }

@@ -31,3 +31,12 @@ void Game::SendOtherPlayer(Socket* player,std::string toSend){
     players[0]->Send();
   }
 }
+
+Socket* Game::GetOtherPlayer(Socket* player){
+  if(player == players[0]){
+    return players[1];
+  }
+  else if(player == players[1]){
+    return players[0];
+  }
+}

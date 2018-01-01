@@ -32,26 +32,33 @@ namespace AdvancedProgramingProjectBIU
 		Error Start();
 
 	public:
-	
+
 		//stream method
 		std::ostream& os;
 
 		//input method
 		std::istream& is;
 
-
 		/******************************************
 		* C'tor
 		* Aim: Initialise tokens, and start the program
 		* Input: to_start ?
 		* Output: -
-		* How it works? Initialises streaming and input 
-						methods. Then checks if an error 
+		* How it works? Initialises streaming and input
+						methods. Then checks if an error
 						was encountered, because of the singletone.
 		*********************************************/
 		MainMenue(bool start = true);
-		
-		
+
+		/******************************************
+		* Play
+		* Aim: start a game
+		* Input: type of a game
+		* Output: error if happend
+		* How it works? Initialises streaming and input
+						methods. Then checks if an error
+						was encountered, because of the singletone.
+		*********************************************/
 		Error Play(int typeOfGame);
 
 	};

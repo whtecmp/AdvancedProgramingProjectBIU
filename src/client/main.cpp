@@ -17,10 +17,10 @@ static std::ostream& operator<<(std::ostream& os, Type t) { return os << (t==BLA
 /******************************************
 * Function Name: main
 * Aim: The startup of the program, initializing
-	and starting the game. Then at the end 
+	and starting the game. Then at the end
 	cleaning up.
 * Input: None
-* Output: An unimportant int
+* Output: An unimportant int (0)
 * How it works? Calls the appropriate MainMenue
 	class.
 *********************************************/
