@@ -125,6 +125,7 @@ function operation:check on which game the player is in. when it is found send
 **************************************/
 void Play(std::string move/*<x> <y>*/,Socket* player){
 	bool isInGame = false;
+	std::string otherplayerMove;
 	Socket* otherPlayer = NULL;
 	//to agree with last exercise format:
 	move[1] = ',';
@@ -133,8 +134,11 @@ void Play(std::string move/*<x> <y>*/,Socket* player){
 				isInGame = true;
 				otherPlayer = ListGames[i]->GetOtherPlayer(player);
 				ListGames[i]->SendOtherPlayer(player,move);
-				otherPlayer->Recive();
-				player->data = otherPlayer->data;
+				otherPlayer->Recive();//the other player makes his move according
+				 												//to format
+				otherplayerMove = otherPlayer->data.substr(strlen("play "));
+				otherplayerMove[1] = ',';
+				player->data = otherplayerMove;
 				player->Send();
 				return;
 
