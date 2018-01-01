@@ -10,7 +10,7 @@ Names: Avi Kadria and Efraim Vagner
 #include <pthread.h>
 #include "Game.h"
 
-#define D true
+#define D false
 
 Game** ListGames = new Game*[100]; //default value, can open more.
 int ListGamesSize = 100;//Saves the size of the list of games.
@@ -18,6 +18,7 @@ int ListGamesSize = 100;//Saves the size of the list of games.
 int CurrentOpenGames = 0; //counts the number of open games.
 
 /*************************************
+ListGames[i]->SendOtherPlayer(player,move);
 function name: OpenGame
 input: name of a game.
 output: nothing
@@ -58,7 +59,7 @@ void PrintGames(Socket* player){
 	std::string output = "";
 	for(int i=0;i<CurrentOpenGames;i++){
 		if(ListGames[i]->GetNumberPlayersInGame() < 2){
-			if(D) std::cout<<"name: " << ListGames[i]->GetName() << std::endl;
+			if(D) std::cout << "name: " << ListGames[i]->GetName() << std::endl;
 			output += ListGames[i]->GetName(); + "\n";
 		}
 	}
@@ -133,7 +134,6 @@ void Play(std::string move/*<x> <y>*/,Socket* player){
 			if(ListGames[i]->Contains(player)){
 				isInGame = true;
 				otherPlayer = ListGames[i]->GetOtherPlayer(player);
-				ListGames[i]->SendOtherPlayer(player,move);
 				otherPlayer->Recive();//the other player makes his move according
 				 												//to format
 				otherplayerMove = otherPlayer->data.substr(strlen("play "));

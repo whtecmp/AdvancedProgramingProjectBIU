@@ -41,6 +41,14 @@ namespace AdvancedProgramingProjectBIU
 	}
 
 
+	/******************************************
+	* Function: Start
+	* Aim: Replace the main function
+	* Input: -
+	* Output: If there was an error or not
+	* How it works? Initialises players, then enters
+					an infinet loop and starts the game.
+	*********************************************/
 	Error MainMenue::Start()
 	{
 		os << "Welcome to Reversi!\n\n Choose an opponent:\n1. a human local player\n2. an AI player\n3. a remote player\n";
@@ -50,9 +58,9 @@ namespace AdvancedProgramingProjectBIU
 	}
 
 	/******************************************
-	* Function: Start
-	* Aim: Replace the main function
-	* Input: -
+	* Function: Play
+	* Aim: runs the game according to the mode specified
+	* Input: int representing the type of the game
 	* Output: If there was an error or not
 	* How it works? Initialises players, then enters
 					an infinet loop and starts the game.
@@ -107,20 +115,20 @@ namespace AdvancedProgramingProjectBIU
 				}
 				else if(requestToServer == "list_games"){
 					if(remotePlay->data == "-1")
-						os<< "Error accured" << std::endl;
+						os << "Error accured" << std::endl;
 					else
 						os << remotePlay->data << std::endl;
 				}
 				else if(requestToServer.substr(0,strlen("start ")) == "join "){
 					if(remotePlay->data == "-1")
-						os<< "Error, There is no game with this name" << std::endl;
+						os << "Error, There is no game with this name" << std::endl;
 					else if (remotePlay->data == "1")
 						os << "Joined the game." << std::endl;
 				}
 				else if(requestToServer.substr(0,strlen("play ")) == "play ")
 				{
 					if (remotePlay->data == "-1")
-						os<<"Error, the player didn't join any game" << std::endl;
+						os << "Error, the player didn't join any game" << std::endl;
 					else{
 						//Update Board according to received data. *****EFI*******
 					}
@@ -184,7 +192,6 @@ namespace AdvancedProgramingProjectBIU
 						{mat[i][j] = true; posMoves = true;}
 				}
 			}
-
 
 			if (posMoves)
 			{
