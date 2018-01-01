@@ -125,8 +125,7 @@ namespace AdvancedProgramingProjectBIU
 						//Update Board according to received data. *****EFI*******
 					}
 				}
-				else if(requestToServer.substr(0,strlen("close ")) == "close ")
-				{
+				else if(requestToServer.substr(0,strlen("close ")) == "close "){
 					if(remotePlay->data == "1")
 						os << "Closed the game" << std::endl;
 					else if(remotePlay->data == "-1")
@@ -140,6 +139,7 @@ namespace AdvancedProgramingProjectBIU
 					os << "Error, this is not an operator format." <<std::endl;
 				}
 			}
+			break;
 			// os << "waiting for other player to join..." << std::endl;
       //
 			// remotePlay->Recive();
@@ -154,12 +154,10 @@ namespace AdvancedProgramingProjectBIU
 			// 	p[0] = new RemotePlayer(BLACK, b, remotePlay);
 			// 	p[1] = new LocalPlayer(WHITE, b, remotePlay);
 			// }
-			break;
 		// default:
 		// 	return NO_SUCH_GAME;
 		// 	break;
 		}
-
 		Type playerToPlayIs = BLACK;
 
 		bool quit = false;
