@@ -225,7 +225,7 @@ namespace AdvancedProgramingProjectBIU
 
 				if (e != NO_ERROR)
 				{
-					os << "Invalid move! Please try again." << std::endl;
+					os << "Invalid move! Please trטy again." << std::endl;
 					playerToPlayIs = !playerToPlayIs;
 				}
 			}
