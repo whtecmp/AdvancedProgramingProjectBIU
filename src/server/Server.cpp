@@ -112,8 +112,8 @@ void JoinGame(std::string gameName,Socket* player){
 			isJoined = true;
 		}
 	}
-	player->data = string(numPlayer);//-1 is error,1 or 2 is num player.
-	player->send();
+	player->data = std::to_string(numPlayer);//-1 is error,1 or 2 is num player.
+	player->Send();
 }
 
 /*************************************

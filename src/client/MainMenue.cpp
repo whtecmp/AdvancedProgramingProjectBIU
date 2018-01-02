@@ -152,9 +152,9 @@ namespace AdvancedProgramingProjectBIU
 					os << "Error, this is not an operator format." <<std::endl;
 				}
 			}
-			break;
+
 			if(!isInGame)
-				return;
+				return NO_ERROR;
 
 				//after I joined game:
 			if (remotePlay->data == "1")
@@ -167,9 +167,10 @@ namespace AdvancedProgramingProjectBIU
 				p[0] = new RemotePlayer(BLACK, b, remotePlay);
 				p[1] = new LocalPlayer(WHITE, b, remotePlay);
 			}
-		default:
-			return NO_SUCH_GAME;
 			break;
+		// default:
+		// 	return NO_SUCH_GAME;
+		// 	break;
 		}
 		Type playerToPlayIs = BLACK;
 
