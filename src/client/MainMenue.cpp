@@ -84,6 +84,7 @@ namespace AdvancedProgramingProjectBIU
 		case 3:
 			//connecting to server:
 			bool toContinue2 = true; //will be true as long as didn't exit
+			bool isInGame = false;
 			remotePlay = new Socket();
 			remotePlay->Connect();
 			remotePlay->data = "active";
@@ -100,12 +101,12 @@ namespace AdvancedProgramingProjectBIU
 				os << "join <game>, joins the game wit the specified name" << std::endl;
 				os << "play <x> <y>,make the move and waits for the other" << std::endl;
 				os << "close <game> closes the game" << std::endl;
-				os << "End, exit the server and close"<<std::endl;
+				os << "Exit, exit the server and close client" << std::endl;
 
 				is >> requestToServer;
 				remotePlay->data = requestToServer;
 				remotePlay->Send();
-				remotePlay->Recive();
+				remotePlay->Recive();//waits for the respond from the server
 
 				if(requestToServer.substr(0,strlen("start ")) == "start "){
 						if(remotePlay->data == "1")
@@ -119,19 +120,23 @@ namespace AdvancedProgramingProjectBIU
 					else
 						os << remotePlay->data << std::endl;
 				}
-				else if(requestToServer.substr(0,strlen("start ")) == "join "){
-					if(remotePlay->data == "-1")
-						os << "Error, There is no game with this name" << std::endl;
-					else if (remotePlay->data == "1")
-						os << "Joined the game." << std::endl;
+				else if(requestToServer.substr(0,strlen("join ")) == "join "){
+					if(remotePlay->data == "-1")//can't join this game for some reason
+						os << "Error, Can't join this game." << std::endl;
+					else if (remotePlay->data == "1"){
+						os << "Joined the game. You are the first player" << std::endl;
+						toContinue2 = false;
+						isInGame = true;
+					}
+					else if (remotePlay->data == "2"){
+						os << "Joined the game. You are the second player" << std::endl;
+						toContinue2 = false;
+						isInGame = true;
+					}
 				}
 				else if(requestToServer.substr(0,strlen("play ")) == "play ")
 				{
-					if (remotePlay->data == "-1")
-						os << "Error, the player didn't join any game" << std::endl;
-					else{
-						//Update Board according to received data. *****EFI*******
-					}
+					os << "Error, the player didn't join any game" << std::endl;
 				}
 				else if(requestToServer.substr(0,strlen("close ")) == "close "){
 					if(remotePlay->data == "1")
@@ -148,23 +153,23 @@ namespace AdvancedProgramingProjectBIU
 				}
 			}
 			break;
-			// os << "waiting for other player to join..." << std::endl;
-      //
-			// remotePlay->Recive();
-      //
-			// if (remotePlay->data == "1st")
-			// {
-			// 	p[0] = new LocalPlayer(BLACK, b, remotePlay);
-			// 	p[1] = new RemotePlayer(WHITE, b, remotePlay);
-			// }
-			// else
-			// {
-			// 	p[0] = new RemotePlayer(BLACK, b, remotePlay);
-			// 	p[1] = new LocalPlayer(WHITE, b, remotePlay);
-			// }
-		// default:
-		// 	return NO_SUCH_GAME;
-		// 	break;
+			if(!isInGame)
+				return;
+
+				//after I joined game:
+			if (remotePlay->data == "1")
+			{
+				p[0] = new LocalPlayer(BLACK, b, remotePlay);
+				p[1] = new RemotePlayer(WHITE, b, remotePlay);
+			}
+			else
+			{
+				p[0] = new RemotePlayer(BLACK, b, remotePlay);
+				p[1] = new LocalPlayer(WHITE, b, remotePlay);
+			}
+		default:
+			return NO_SUCH_GAME;
+			break;
 		}
 		Type playerToPlayIs = BLACK;
 

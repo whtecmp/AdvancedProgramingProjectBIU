@@ -13,7 +13,7 @@ public:
 	~Game();
 	std::string GetName(){return gameName;}
 	//returns whether it was able to add the player to the game.
-	bool AddPlayerToGame(Socket* player);
+	int AddPlayerToGame(Socket* player);
 	bool Contains(Socket* player);
 	Socket* GetOtherPlayer(Socket* player);
 	void SendOtherPlayer(Socket* player,std::string toSend);

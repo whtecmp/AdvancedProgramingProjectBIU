@@ -105,16 +105,15 @@ function operation:check if there exists a game with this name and f there is
 **************************************/
 void JoinGame(std::string gameName,Socket* player){
 	bool isJoined;
+	int numPlayer = -1;
 	for(int i=0;i<CurrentOpenGames;i++){
-		if(gameName==ListGames[i]->GetName()){
-			ListGames[i]->AddPlayerToGame(player);
+		if(gameName == ListGames[i]->GetName()){
+			numPlayer = ListGames[i]->AddPlayerToGame(player);
 			isJoined = true;
 		}
 	}
-	if(isJoined)
-		player->data = "1";
-	else
-		player->data = "-1";
+	player->data = string(numPlayer);//-1 is error,1 or 2 is num player.
+	player->send();
 }
 
 /*************************************
@@ -178,7 +177,7 @@ void* HandlePlayer(void* voidpToPlayer){
 		else if(player->data == "list_games"){
 			PrintGames(player);
 		}
-		else if(player->data.substr(0,strlen("start ")) == "join "){
+		else if(player->data.substr(0,strlen("join ")) == "join "){
 			JoinGame(player->data.substr(strlen("join ")),player);
 		}
 		else if(player->data.substr(0,strlen("play ")) == "play ")

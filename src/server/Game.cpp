@@ -5,13 +5,14 @@ Game::~Game(){
   delete(players[2]);
 }
 
-bool Game::AddPlayerToGame(Socket* player){
+int Game::AddPlayerToGame(Socket* player){
   if (numberPlayersInGame < 2){
     this->players[numberPlayersInGame] = player;
     numberPlayersInGame++;
+    return -1; //indicates Error
   }
   else
-    return false;
+    return numberPlayersInGame;//1 is the first and 2 is the second
 }
 
 bool Game::Contains(Socket* player){
